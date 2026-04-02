@@ -168,6 +168,7 @@ export class MultiSelect<T> extends AbstractPureComponent<MultiSelectProps<T>, M
 
     private refHandlers: {
         input: React.RefCallback<HTMLInputElement>;
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         popover: React.RefObject<Popover>;
         queryList: React.RefCallback<QueryList<T>>;
     } = {
@@ -217,6 +218,7 @@ export class MultiSelect<T> extends AbstractPureComponent<MultiSelectProps<T>, M
 
         // N.B. no need to set `popoverProps.fill` since that is unused with the `renderTarget` API
         return (
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             <Popover
                 autoFocus={false}
                 canEscapeKeyClose={true}

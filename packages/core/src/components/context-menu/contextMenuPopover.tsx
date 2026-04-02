@@ -73,6 +73,7 @@ export const ContextMenuPopover = memo(function ContextMenuPopover(props: Contex
     );
 
     return (
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <Popover
             placement="right-start"
             rootBoundary={rootBoundary}

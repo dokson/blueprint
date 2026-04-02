@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import { type HTMLAttributes, mount, type ReactWrapper } from "enzyme";
 import { act } from "react";
 import * as sinon from "sinon";

@@ -540,6 +540,7 @@ export const DateInput: React.FC<DateInputProps> = memo(function DateInput(props
 
     // N.B. no need to set `fill` since that is unused with the `renderTarget` API
     return (
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <Popover
             isOpen={isOpen && !disabled}
             {...popoverProps}

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import classNames from "classnames";
 import { mount, type ReactWrapper } from "enzyme";
 import { createRef, useCallback } from "react";

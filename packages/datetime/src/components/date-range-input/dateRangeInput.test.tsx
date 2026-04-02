@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import { format, parse } from "date-fns";
 import * as Locales from "date-fns/locale";
 import esLocale from "date-fns/locale/es";

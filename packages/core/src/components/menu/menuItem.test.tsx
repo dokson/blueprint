@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { mount, type ReactWrapper, shallow, type ShallowWrapper } from "enzyme";

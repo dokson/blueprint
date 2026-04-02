@@ -232,6 +232,7 @@ export class TruncatedFormat extends PureComponent<TruncatedFormatProps, Truncat
             );
             const popoverContent = <div className={popoverClasses}>{children}</div>;
             return (
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
                 <Popover
                     className={Classes.TABLE_TRUNCATED_POPOVER_TARGET}
                     content={popoverContent}

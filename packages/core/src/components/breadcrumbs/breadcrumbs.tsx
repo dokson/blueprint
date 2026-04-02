@@ -150,6 +150,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = memo(props => {
 
             return (
                 <li>
+                    {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
                     <Popover
                         content={<Menu>{orderedItems.map(renderOverflowBreadcrumb)}</Menu>}
                         disabled={orderedItems.length === 0}

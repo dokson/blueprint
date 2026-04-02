@@ -38,5 +38,6 @@ export interface DatetimePopoverProps {
      * Note that this is defined as a specific kind of Popover which should be compatible with
      * most use cases, since it uses the default target props interface.
      */
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     popoverRef?: React.RefObject<Popover<DefaultPopoverTargetHTMLProps>>;
 }

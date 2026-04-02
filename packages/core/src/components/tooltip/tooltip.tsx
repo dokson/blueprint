@@ -98,6 +98,7 @@ export class Tooltip<
         transitionDuration: 100,
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     private popoverRef = createRef<Popover<T>>();
 
     public render() {
@@ -122,6 +123,7 @@ export class Tooltip<
         });
 
         return (
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             <Popover
                 modifiers={{
                     arrow: {

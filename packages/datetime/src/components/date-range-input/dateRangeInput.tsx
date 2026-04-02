@@ -226,6 +226,7 @@ export class DateRangeInput extends DateFnsLocalizedComponent<DateRangeInputProp
         // allow custom props for the popover and each input group, but pass them in an order that
         // guarantees only some props are overridable.
         return (
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             <Popover
                 isOpen={this.state.isOpen}
                 placement="bottom-start"

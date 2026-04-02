@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import { intlFormat, parseISO } from "date-fns";
 import enUSLocale from "date-fns/locale/en-US";
 import { formatInTimeZone, zonedTimeToUtc } from "date-fns-tz";

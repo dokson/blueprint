@@ -106,6 +106,7 @@ export class NavHeader extends PureComponent<NavHeaderProps> {
                 return <MenuItem href={href} intent={intent} key={v} text={v} />;
             });
         return (
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             <Popover
                 content={
                     <Menu aria-label="docs version" className="docs-version-list" id={VERSION_MENU_ID}>
