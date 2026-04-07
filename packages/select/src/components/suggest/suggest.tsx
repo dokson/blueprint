@@ -181,8 +181,7 @@ export class Suggest<T> extends AbstractPureComponent<SuggestProps<T>, SuggestSt
         if (this.state.isOpen === false && prevState.isOpen === true) {
             // just closed, likely by keyboard interaction
             // wait until the transition ends so there isn't a flash of content in the popover
-            // eslint-disable-next-line @typescript-eslint/no-deprecated
-            const timeout = this.props.popoverProps?.transitionDuration ?? Popover.defaultProps.transitionDuration;
+            const timeout = this.props.popoverProps?.transitionDuration ?? 300;
             setTimeout(() => this.maybeResetActiveItemToSelectedItem(), timeout);
         }
 
