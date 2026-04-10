@@ -15,8 +15,15 @@ import { NavbarHeading } from "./navbarHeading";
 const meta: Meta<typeof Navbar> = {
     title: "Core/Navbar",
     component: Navbar,
+    decorators: [
+        Story => (
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", maxWidth: "800px", height: "100vh", margin: "0 auto" }}>
+                <Story />
+            </div>
+        ),
+    ],
     parameters: {
-        layout: "padded",
+        layout: "fullscreen",
     },
     tags: ["autodocs"],
     args: {
@@ -40,6 +47,21 @@ export const Default: Story = {
                 <Button variant="minimal" icon="document" text="Files" />
             </NavbarGroup>
             <NavbarGroup align={Alignment.END}>
+                <Button variant="minimal" icon="notifications" />
+                <Button variant="minimal" icon="cog" />
+            </NavbarGroup>
+        </Navbar>
+    ),
+};
+
+export const GroupAlignment: Story = {
+    render: args => (
+        <Navbar {...args}>
+            <NavbarGroup align={Alignment.CENTER}>
+                <NavbarHeading>Blueprint</NavbarHeading>
+                <NavbarDivider />
+                <Button variant="minimal" icon="home" text="Home" />
+                <Button variant="minimal" icon="document" text="Files" />
                 <Button variant="minimal" icon="notifications" />
                 <Button variant="minimal" icon="cog" />
             </NavbarGroup>
