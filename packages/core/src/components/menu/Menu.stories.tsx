@@ -18,7 +18,7 @@ const meta: Meta<typeof Menu> = {
     component: Menu,
     decorators: [
         Story => (
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minWidth: "300px" }}>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <Story />
             </div>
         ),
@@ -95,6 +95,64 @@ export const SizeExample: Story = {
                     </Menu>
                 </div>
             ))}
+        </div>
+    ),
+};
+
+export const LabelExample: Story = {
+    name: "Label",
+    argTypes: {
+        size: { table: { disable: true } },
+    },
+    render: args => (
+        <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <span style={{ fontSize: 12, opacity: 0.6, textTransform: "capitalize" }}>With label</span>
+                <Menu {...args}>
+                    <MenuItem icon="floppy-disk" text="Save" label="⌘S" />
+                    <MenuItem icon="clipboard" text="Copy" label="⌘S" />
+                    <MenuDivider />
+                    <MenuItem icon="cog" text="Settings" label="⌘K" />
+                </Menu>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                <span style={{ fontSize: 12, opacity: 0.6, textTransform: "capitalize" }}>Without label</span>
+                <Menu {...args}>
+                    <MenuItem icon="floppy-disk" text="Save" />
+                    <MenuItem icon="clipboard" text="Copy" />
+                    <MenuDivider />
+                    <MenuItem icon="cog" text="Settings" />
+                </Menu>
+            </div>
+        </div>
+    ),
+};
+
+export const MulitlineExample: Story = {
+    name: "Mulitline",
+    argTypes: {
+        size: { table: { disable: true } },
+    },
+    render: args => (
+        <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+            <div style={{ display: "flex", flexDirection: "column", width: 200, gap: 4 }}>
+                <span style={{ fontSize: 12, opacity: 0.6, textTransform: "capitalize" }}>With multiline</span>
+                <Menu {...args}>
+                    <MenuItem icon="floppy-disk" text="This is an example of test that is too long" multiline />
+                    <MenuItem icon="clipboard" text="This is also an example of test that is too long" multiline />
+                    <MenuDivider />
+                    <MenuItem icon="cog" text="This final menu option is similarly too long" multiline />
+                </Menu>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", width: 200, gap: 4 }}>
+                <span style={{ fontSize: 12, opacity: 0.6, textTransform: "capitalize" }}>Without multiline</span>
+                <Menu {...args}>
+                    <MenuItem icon="floppy-disk" text="This is an example of test that is too long" />
+                    <MenuItem icon="clipboard" text="This is also an example of test that is too long" />
+                    <MenuDivider />
+                    <MenuItem icon="cog" text="This final menu option is similarly too long" />
+                </Menu>
+            </div>
         </div>
     ),
 };
