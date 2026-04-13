@@ -196,7 +196,11 @@ export const MulitlineExample: Story = {
                 <span style={{ fontSize: 12, opacity: 0.6, textTransform: "capitalize" }}>With multiline</span>
                 <Menu {...args}>
                     <MenuItem icon="floppy-disk" text="This is an example of test that is too long" multiline={true} />
-                    <MenuItem icon="clipboard" text="This is also an example of test that is too long" multiline={true} />
+                    <MenuItem
+                        icon="clipboard"
+                        text="This is also an example of test that is too long"
+                        multiline={true}
+                    />
                     <MenuDivider />
                     <MenuItem icon="cog" text="This final menu option is similarly too long" multiline={true} />
                 </Menu>
