@@ -17,7 +17,16 @@ const meta: Meta<typeof Navbar> = {
     component: Navbar,
     decorators: [
         Story => (
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", maxWidth: "800px", height: "100vh", margin: "0 auto" }}>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    maxWidth: "800px",
+                    height: "100vh",
+                    margin: "0 auto",
+                }}
+            >
                 <Story />
             </div>
         ),
