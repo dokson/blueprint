@@ -42,7 +42,7 @@ const meta: Meta<typeof HTMLTable> = {
     component: HTMLTable,
     decorators: [
         Story => (
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minWidth: "400px" }}>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <Story />
             </div>
         ),
@@ -76,75 +76,35 @@ export const Default: Story = {
 };
 
 /**
- * Use the `bordered`, `compact`, `interactive`, and `striped` props to control table appearance.
+ * A table with bordered cells.
  */
-export const StateExample: Story = {
-    name: "State",
-    argTypes: {
-        bordered: { table: { disable: true } },
-        compact: { table: { disable: true } },
-        interactive: { table: { disable: true } },
-        striped: { table: { disable: true } },
-    },
-    render: args => (
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <div>
-                <div style={{ fontSize: 12, opacity: 0.6, marginBottom: 8 }}>Bordered</div>
-                {renderTable({ ...args, bordered: true })}
-            </div>
-            <div>
-                <div style={{ fontSize: 12, opacity: 0.6, marginBottom: 8 }}>Compact</div>
-                {renderTable({ ...args, compact: true })}
-            </div>
-            <div>
-                <div style={{ fontSize: 12, opacity: 0.6, marginBottom: 8 }}>Striped</div>
-                {renderTable({ ...args, striped: true })}
-            </div>
-            <div>
-                <div style={{ fontSize: 12, opacity: 0.6, marginBottom: 8 }}>Interactive (hover rows)</div>
-                {renderTable({ ...args, interactive: true })}
-            </div>
-        </div>
-    ),
+export const Bordered: Story = {
+    args: { bordered: true },
+    render: args => renderTable(args),
 };
 
 /**
- * All prop combinations displayed together for visual comparison.
+ * A table with compact row spacing.
  */
-export const AllCombinations: Story = {
-    name: "All Combinations",
-    argTypes: {
-        bordered: { table: { disable: true } },
-        compact: { table: { disable: true } },
-        interactive: { table: { disable: true } },
-        striped: { table: { disable: true } },
-    },
-    render: args => (
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <div>
-                <div style={{ fontSize: 12, opacity: 0.6, marginBottom: 8 }}>Default</div>
-                {renderTable(args)}
-            </div>
-            <div>
-                <div style={{ fontSize: 12, opacity: 0.6, marginBottom: 8 }}>Bordered + Striped</div>
-                {renderTable({ ...args, bordered: true, striped: true })}
-            </div>
-            <div>
-                <div style={{ fontSize: 12, opacity: 0.6, marginBottom: 8 }}>Bordered + Compact</div>
-                {renderTable({ ...args, bordered: true, compact: true })}
-            </div>
-            <div>
-                <div style={{ fontSize: 12, opacity: 0.6, marginBottom: 8 }}>Bordered + Striped + Interactive</div>
-                {renderTable({ ...args, bordered: true, striped: true, interactive: true })}
-            </div>
-            <div>
-                <div style={{ fontSize: 12, opacity: 0.6, marginBottom: 8 }}>
-                    Bordered + Striped + Compact + Interactive
-                </div>
-                {renderTable({ ...args, bordered: true, striped: true, compact: true, interactive: true })}
-            </div>
-        </div>
-    ),
+export const Compact: Story = {
+    args: { compact: true },
+    render: args => renderTable(args),
+};
+
+/**
+ * A table with alternating row stripes.
+ */
+export const Striped: Story = {
+    args: { striped: true },
+    render: args => renderTable(args),
+};
+
+/**
+ * A table with interactive (hoverable) rows.
+ */
+export const Interactive: Story = {
+    args: { interactive: true },
+    render: args => renderTable(args),
 };
 
 /**
