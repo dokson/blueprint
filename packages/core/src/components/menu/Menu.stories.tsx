@@ -3,6 +3,7 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { useArgs, useCallback } from "storybook/preview-api";
 
 import { Intent, Size } from "../../common";
 
@@ -10,10 +11,43 @@ import { Menu } from "./menu";
 import { MenuDivider } from "./menuDivider";
 import { MenuItem } from "./menuItem";
 
+type MenuStoryArgs = React.ComponentProps<typeof Menu> & {
+    icon: string;
+    text: string;
+    label: string;
+    intent: string;
+    disabled: boolean;
+    active: boolean;
+    selected: boolean;
+    multiline: boolean;
+    roleStructure: "menuitem" | "listoption" | "listitem" | "none";
+};
+
 // These props are deprecated on Menu — hide them from the Storybook controls panel.
 const disabledArgs = ["large", "small"] as const satisfies ReadonlyArray<keyof React.ComponentProps<typeof Menu>>;
 
-const meta: Meta<typeof Menu> = {
+// MenuItem-specific arg names — hidden in non-Playground stories.
+const menuItemArgNames = [
+    "icon",
+    "text",
+    "label",
+    "intent",
+    "disabled",
+    "active",
+    "selected",
+    "multiline",
+    "roleStructure",
+] as const;
+
+const disabledMenuItemArgTypes = menuItemArgNames.reduce(
+    (acc, argName) => {
+        acc[argName] = { table: { disable: true } };
+        return acc;
+    },
+    {} as Record<(typeof menuItemArgNames)[number], { table: { disable: boolean } }>,
+);
+
+const meta: Meta<MenuStoryArgs> = {
     title: "Core/Menu",
     component: Menu,
     decorators: [
@@ -29,11 +63,35 @@ const meta: Meta<typeof Menu> = {
     tags: ["autodocs"],
     args: {
         size: "medium",
+        icon: "document",
+        text: "Editable Item",
+        label: "⌘E",
+        intent: "none",
+        disabled: false,
+        active: false,
+        selected: false,
+        multiline: false,
+        roleStructure: "menuitem",
     },
     argTypes: {
         size: {
             control: "select",
             options: Object.values(Size),
+        },
+        icon: { control: "text" },
+        text: { control: "text" },
+        label: { control: "text" },
+        intent: {
+            control: "select",
+            options: Object.values(Intent),
+        },
+        disabled: { control: "boolean" },
+        active: { control: "boolean" },
+        selected: { control: "boolean" },
+        multiline: { control: "boolean" },
+        roleStructure: {
+            control: "select",
+            options: ["menuitem", "listoption", "listitem", "none"],
         },
         ...disabledArgs.reduce(
             (acc, argName) => {
@@ -43,12 +101,13 @@ const meta: Meta<typeof Menu> = {
             {} as Record<(typeof disabledArgs)[number], { table: { disable: boolean } }>,
         ),
     },
-} satisfies Meta<typeof Menu>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+    argTypes: disabledMenuItemArgTypes,
     render: args => (
         <Menu {...args}>
             <MenuItem icon="new-text-box" text="New text box" />
@@ -64,6 +123,7 @@ export const IntentExample: Story = {
     name: "Intent",
     argTypes: {
         size: { table: { disable: true } },
+        ...disabledMenuItemArgTypes,
     },
     render: args => (
         <div style={{ display: "flex", gap: 8 }}>
@@ -81,6 +141,7 @@ export const SizeExample: Story = {
     name: "Size",
     argTypes: {
         size: { table: { disable: true } },
+        ...disabledMenuItemArgTypes,
     },
     render: args => (
         <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
@@ -103,6 +164,7 @@ export const LabelExample: Story = {
     name: "Label",
     argTypes: {
         size: { table: { disable: true } },
+        ...disabledMenuItemArgTypes,
     },
     render: args => (
         <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
@@ -132,6 +194,7 @@ export const MulitlineExample: Story = {
     name: "Mulitline",
     argTypes: {
         size: { table: { disable: true } },
+        ...disabledMenuItemArgTypes,
     },
     render: args => (
         <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
@@ -161,6 +224,7 @@ export const StateExample: Story = {
     name: "State",
     argTypes: {
         size: { table: { disable: true } },
+        ...disabledMenuItemArgTypes,
     },
     render: args => (
         <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
@@ -198,6 +262,7 @@ export const StateExample: Story = {
 
 export const IconExample: Story = {
     name: "Icons",
+    argTypes: disabledMenuItemArgTypes,
     render: args => (
         <Menu {...args}>
             <MenuItem icon="applications" text="With icon" />
@@ -209,19 +274,40 @@ export const IconExample: Story = {
 };
 
 export const Playground: Story = {
-    render: args => (
-        <Menu {...args}>
-            <MenuDivider title="File" />
-            <MenuItem icon="document" text="New" label="⌘N" />
-            <MenuItem icon="document-open" text="Open" label="⌘O" />
-            <MenuItem icon="floppy-disk" text="Save" label="⌘S" intent="primary" />
-            <MenuDivider title="Edit" />
-            <MenuItem icon="cut" text="Cut" label="⌘X" />
-            <MenuItem icon="clipboard" text="Copy" label="⌘C" />
-            <MenuItem icon="duplicate" text="Paste" label="⌘V" />
-            <MenuDivider />
-            <MenuItem icon="trash" text="Delete" intent="danger" />
-            <MenuItem icon="lock" text="Locked" disabled={true} />
-        </Menu>
-    ),
+    render: function Render(args) {
+        const { size, icon, text, label, intent, disabled, active, selected, multiline, roleStructure, ...rest } = args;
+        const [, updateArgs] = useArgs();
+        const handleClick = useCallback(() => updateArgs({ selected: !selected }), [selected, updateArgs]);
+        return (
+            <Menu size={size} {...rest}>
+                <MenuItem
+                    icon={icon || undefined}
+                    text={text}
+                    label={label || undefined}
+                    intent={intent}
+                    disabled={disabled}
+                    active={active}
+                    selected={selected}
+                    multiline={multiline}
+                    roleStructure={roleStructure}
+                    onClick={handleClick}
+                />
+                <MenuItem icon="document-open" text="Open" label="⌘O" />
+                <MenuItem icon="floppy-disk" text="Save" label="⌘S" intent="primary" />
+                <MenuDivider title="Edit" />
+                <MenuItem icon="cut" text="Cut" label="⌘X" />
+                <MenuItem icon="clipboard" text="Copy" label="⌘C" />
+                <MenuItem icon="duplicate" text="Paste" label="⌘V" />
+                <MenuDivider />
+                <MenuItem icon="trash" text="Delete" intent="danger" />
+                <MenuItem icon="lock" text="Locked" disabled={true} />
+            </Menu>
+        );
+    },
+    args: {
+        intent: "danger",
+        icon: "trash",
+        text: "Delete Item",
+        label: "⌘D",
+    },
 };
