@@ -9,19 +9,13 @@ import { Intent, Size } from "../../common";
 
 import { Menu } from "./menu";
 import { MenuDivider } from "./menuDivider";
-import { MenuItem } from "./menuItem";
+import { MenuItem, type MenuItemProps } from "./menuItem";
 
-type MenuStoryArgs = React.ComponentProps<typeof Menu> & {
-    icon: string;
-    text: string;
-    label: string;
-    intent: string;
-    disabled: boolean;
-    active: boolean;
-    selected: boolean;
-    multiline: boolean;
-    roleStructure: "menuitem" | "listoption" | "listitem" | "none";
-};
+type MenuStoryArgs = React.ComponentProps<typeof Menu> &
+    Pick<
+        MenuItemProps,
+        "icon" | "text" | "label" | "intent" | "disabled" | "active" | "selected" | "multiline" | "roleStructure"
+    >;
 
 // These props are deprecated on Menu — hide them from the Storybook controls panel.
 const disabledArgs = ["large", "small"] as const satisfies ReadonlyArray<keyof React.ComponentProps<typeof Menu>>;
@@ -201,10 +195,10 @@ export const MulitlineExample: Story = {
             <div style={{ display: "flex", flexDirection: "column", width: 200, gap: 4 }}>
                 <span style={{ fontSize: 12, opacity: 0.6, textTransform: "capitalize" }}>With multiline</span>
                 <Menu {...args}>
-                    <MenuItem icon="floppy-disk" text="This is an example of test that is too long" multiline />
-                    <MenuItem icon="clipboard" text="This is also an example of test that is too long" multiline />
+                    <MenuItem icon="floppy-disk" text="This is an example of test that is too long" multiline={true} />
+                    <MenuItem icon="clipboard" text="This is also an example of test that is too long" multiline={true} />
                     <MenuDivider />
-                    <MenuItem icon="cog" text="This final menu option is similarly too long" multiline />
+                    <MenuItem icon="cog" text="This final menu option is similarly too long" multiline={true} />
                 </Menu>
             </div>
             <div style={{ display: "flex", flexDirection: "column", width: 200, gap: 4 }}>
