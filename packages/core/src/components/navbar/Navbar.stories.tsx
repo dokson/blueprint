@@ -3,6 +3,7 @@
  */
 
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { StoryLabel } from "@storybook-common";
 
 import { Alignment } from "../../common";
 import { Button } from "../button/buttons";
@@ -63,18 +64,63 @@ export const Default: Story = {
     ),
 };
 
-export const GroupAlignment: Story = {
+export const FixedToTop: Story = {
+    args: {
+        fixedToTop: true,
+    },
     render: args => (
         <Navbar {...args}>
-            <NavbarGroup align={Alignment.CENTER}>
+            <NavbarGroup align={Alignment.START}>
                 <NavbarHeading>Blueprint</NavbarHeading>
                 <NavbarDivider />
                 <Button variant="minimal" icon="home" text="Home" />
                 <Button variant="minimal" icon="document" text="Files" />
+            </NavbarGroup>
+            <NavbarGroup align={Alignment.END}>
                 <Button variant="minimal" icon="notifications" />
                 <Button variant="minimal" icon="cog" />
             </NavbarGroup>
         </Navbar>
+    ),
+};
+
+export const GroupAlignment: Story = {
+    render: args => (
+        <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: 600 }}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+                <StoryLabel title="Start (default)" />
+                <Navbar {...args}>
+                    <NavbarGroup align={Alignment.START}>
+                        <NavbarHeading>Blueprint</NavbarHeading>
+                        <NavbarDivider />
+                        <Button variant="minimal" icon="home" text="Home" />
+                        <Button variant="minimal" icon="document" text="Files" />
+                    </NavbarGroup>
+                </Navbar>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+                <StoryLabel title="Center" />
+                <Navbar {...args}>
+                    <NavbarGroup align={Alignment.CENTER}>
+                        <NavbarHeading>Blueprint</NavbarHeading>
+                        <NavbarDivider />
+                        <Button variant="minimal" icon="home" text="Home" />
+                        <Button variant="minimal" icon="document" text="Files" />
+                    </NavbarGroup>
+                </Navbar>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+                <StoryLabel title="End" />
+                <Navbar {...args}>
+                    <NavbarGroup align={Alignment.END}>
+                        <NavbarHeading>Blueprint</NavbarHeading>
+                        <NavbarDivider />
+                        <Button variant="minimal" icon="home" text="Home" />
+                        <Button variant="minimal" icon="document" text="Files" />
+                    </NavbarGroup>
+                </Navbar>
+            </div>
+        </div>
     ),
 };
 
