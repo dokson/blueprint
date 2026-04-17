@@ -6,19 +6,16 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Elevation } from "../../common";
 
+import { Tag } from "../tag/tag";
+
 import { Section } from "./section";
 import { SectionCard } from "./sectionCard";
+import { DashedPaddedContainer, storybookLayoutDecorator, StoryLabel } from "@storybook-common";
 
 const meta: Meta<typeof Section> = {
     title: "Core/Section",
     component: Section,
-    decorators: [
-        Story => (
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minWidth: "500px" }}>
-                <Story />
-            </div>
-        ),
-    ],
+    decorators: [storybookLayoutDecorator],
     parameters: {
         layout: "centered",
     },
@@ -72,15 +69,15 @@ export const ElevationExample: Story = {
         elevation: { table: { disable: true } },
     },
     render: args => (
-        <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 30, width: "100%" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <span style={{ fontSize: 12, opacity: 0.6 }}>Elevation 0</span>
+                <StoryLabel title="Elevation 0" />
                 <Section {...args} elevation={Elevation.ZERO}>
                     <SectionCard>Content with zero elevation.</SectionCard>
                 </Section>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <span style={{ fontSize: 12, opacity: 0.6 }}>Elevation 1</span>
+                <StoryLabel title="Elevation 1" />
                 <Section {...args} elevation={Elevation.ONE}>
                     <SectionCard>Content with elevation one.</SectionCard>
                 </Section>
@@ -98,15 +95,15 @@ export const CompactExample: Story = {
         compact: { table: { disable: true } },
     },
     render: args => (
-        <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 30, width: "100%" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <span style={{ fontSize: 12, opacity: 0.6 }}>Default</span>
+                <StoryLabel title="Default" />
                 <Section {...args} compact={false}>
                     <SectionCard>Default padding.</SectionCard>
                 </Section>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                <span style={{ fontSize: 12, opacity: 0.6 }}>Compact</span>
+                <StoryLabel title="Compact" />
                 <Section {...args} compact={true}>
                     <SectionCard>Compact padding.</SectionCard>
                 </Section>
@@ -126,16 +123,84 @@ export const IconExample: Story = {
         subtitle: { table: { disable: true } },
     },
     render: args => (
-        <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
-            <Section {...args} icon="settings" title="Settings">
-                <SectionCard>Section with an icon.</SectionCard>
-            </Section>
-            <Section {...args} title="Configuration" subtitle="Manage your application settings">
-                <SectionCard>Section with a subtitle.</SectionCard>
-            </Section>
-            <Section {...args} icon="cog" title="Advanced" subtitle="Expert-level options">
-                <SectionCard>Section with both icon and subtitle.</SectionCard>
-            </Section>
+        <div style={{ display: "flex", flexDirection: "column", gap: 30, width: "100%" }}>
+            <div>
+                <StoryLabel title="Icon" />
+                <DashedPaddedContainer>
+                    <Section {...args} icon="settings" title="Settings">
+                        <SectionCard>Section with an icon.</SectionCard>
+                    </Section>
+                </DashedPaddedContainer>
+            </div>
+            <div>
+                <StoryLabel title="Subtitle" />
+                <DashedPaddedContainer>
+                    <Section {...args} title="Configuration" subtitle="Manage your settings">
+                        <SectionCard>Section with a subtitle.</SectionCard>
+                    </Section>
+                </DashedPaddedContainer>
+            </div>
+            <div>
+                <StoryLabel title="Icon & Subtitle" />
+                <DashedPaddedContainer>
+                    <Section {...args} icon="cog" title="Advanced" subtitle="Expert-level options">
+                        <SectionCard>Section with both icon and subtitle.</SectionCard>
+                    </Section>
+                </DashedPaddedContainer>
+            </div>
+        </div>
+    ),
+};
+
+/**
+ * Use the `rightElement` prop to render an element on the right side of the section header.
+ */
+export const RightElementExample: Story = {
+    name: "Right Element",
+    render: args => (
+        <div>
+            <StoryLabel title="Right Element" />
+            <DashedPaddedContainer>
+                <Section {...args} title="Settings" rightElement={<Tag minimal={true}>Beta</Tag>}>
+                    <SectionCard>Section with a right element.</SectionCard>
+                </Section>
+            </DashedPaddedContainer>
+        </div>
+    ),
+};
+
+/**
+ * Use the `collapsible` prop to allow the section to be collapsed.
+ * The section is expanded by default and can be toggled by clicking the header.
+ */
+export const CollapsibleExample: Story = {
+    name: "Collapsible",
+    argTypes: {
+        collapsible: { table: { disable: true } },
+    },
+    render: args => (
+        <div style={{ display: "flex", flexDirection: "row", gap: 30, width: "100%" }}>
+            <div>
+                <StoryLabel title="Expanded" />
+                <DashedPaddedContainer>
+                    <Section {...args} collapsible={true} title="Expanded by default">
+                        <SectionCard>This section starts expanded.</SectionCard>
+                    </Section>
+                </DashedPaddedContainer>
+            </div>
+            <div>
+                <StoryLabel title="Collapsed" />
+                <DashedPaddedContainer>
+                    <Section
+                        {...args}
+                        collapsible={true}
+                        collapseProps={{ defaultIsOpen: false }}
+                        title="Collapsed by default"
+                    >
+                        <SectionCard>This section starts collapsed.</SectionCard>
+                    </Section>
+                </DashedPaddedContainer>
+            </div>
         </div>
     ),
 };
